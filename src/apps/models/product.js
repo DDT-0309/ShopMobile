@@ -6,7 +6,7 @@ const productSchema = mongoose.Schema({
         type: String,
         default: null,
     },
-    descripsion:{
+    description:{
         type: String,
         default: null,
     },

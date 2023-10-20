@@ -56,8 +56,36 @@ const store = (req, res)=>{
     }
 
 };
-const edit = (req, res)=>{
-    res.render("admin/products/edit_product");
+const edit = async (req, res)=>{
+    const id = req.params.id;
+    const product = await ProductModel.find({_id: id});
+    const categories = await CategoryModel.find();
+    res.render("admin/products/edit_product", {product: product[0], categories});
+};
+const update = async (req, res)=>{
+    const id = req.params.id;
+    const {file, body}= req;
+    const product = {
+        description:body.description,
+        price: body.price,
+        cat_id: body.cat_id,
+        status: body.status,
+        featured: body.featured=="on",
+        promotion: body.promotion,
+        warranty: body.warranty,
+        accessories: body.accessories,
+        is_stock: body.is_stock,
+        name: body.name,
+        slug: slug(body.name),
+    }
+    if(file){
+        const thumbnail = "products/"+file.originalname;
+        fs.renameSync(file.path, path.resolve("src/public/images", thumbnail));
+        product["thumbnail"] = thumbnail;
+    }
+
+    await ProductModel.updateOne({_id: id}, {$set:product});
+    res.redirect("/admin/products");
 };
 const del = async (req, res)=>{
     const id = req.params.id;
@@ -70,5 +98,6 @@ module.exports = {
     create,
     store,
     edit,
+    update,
     del,
 };

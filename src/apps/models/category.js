@@ -1,6 +1,6 @@
 const mongoose = require("../../common/database")();
 const categorySchema = mongoose.Schema({
-    descripsion:{
+    description:{
         type: String,
         default: null,
     },

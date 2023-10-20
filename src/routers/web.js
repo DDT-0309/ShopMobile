@@ -8,6 +8,7 @@ const AdminController = require("../apps/controllers/admin");
 const ProductController = require("../apps/controllers/product");
 const CategoryController = require("../apps/controllers/category");
 const UserController = require("../apps/controllers/user");
+const SiteController = require("../apps/controllers/site");
 
 
 // Import Middleware
@@ -15,6 +16,8 @@ const UserController = require("../apps/controllers/user");
 const AuthMiddleware = require("../apps/middlewares/auth");
 const UploadMiddleware = require("../apps/middlewares/upload");
 
+
+// Router Admin
 router.get("/test", TestControllers.test);
 router.post("/testForm", TestControllers.actionForm);
 
@@ -29,6 +32,7 @@ router.get("/admin/products", AuthMiddleware.CheckAdmin, ProductController.index
 router.get("/admin/products/create", AuthMiddleware.CheckAdmin, ProductController.create);
 router.post("/admin/products/store", AuthMiddleware.CheckAdmin, UploadMiddleware.single("thumbnail"), ProductController.store);
 router.get("/admin/products/edit/:id", AuthMiddleware.CheckAdmin, ProductController.edit);
+router.post("/admin/products/update/:id", AuthMiddleware.CheckAdmin, UploadMiddleware.single("thumbnail"), ProductController.update);
 router.get("/admin/products/delete/:id", AuthMiddleware.CheckAdmin, ProductController.del);
 
 router.get("/admin/categories", AuthMiddleware.CheckAdmin, CategoryController.index);
@@ -42,6 +46,16 @@ router.get("/admin/users/create", AuthMiddleware.CheckAdmin, UserController.crea
 router.post("/admin/users/store", AuthMiddleware.CheckAdmin, UserController.store);
 router.get("/admin/users/edit/:id", AuthMiddleware.CheckAdmin, UserController.edit);
 router.get("/admin/users/delete/:id", AuthMiddleware.CheckAdmin, UserController.del);
+
+
+// Router Site
+
+router.get("/", SiteController.home);
+router.get("/category", SiteController.category);
+router.get("/product", SiteController.product);
+router.get("/search", SiteController.search);
+router.get("/cart", SiteController.cart);
+router.get("/success", SiteController.success);
 
 
 
