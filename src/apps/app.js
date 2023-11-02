@@ -18,6 +18,10 @@ app.use("/static", express.static(config.get("app.static_folder")));
 app.set("views", config.get("app.views_folder"));
 app.set("view engine", config.get("app.views_engine"));
 
+// Share Menu
+app.use(require("./middlewares/cart"));
+app.use(require("./middlewares/share"));
+
 //Router
 app.use(require(config.get("app.router")));
 

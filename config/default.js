@@ -7,5 +7,14 @@ module.exports = {
         views_engine: "ejs",
         session_key: "vietpro",
         tmp: `${__dirname}/../src/tmp`,
+    },
+    mail:{
+        host: "smtp.gmail.com",
+        post: 587,
+        secure: false,
+        auth: {
+            user: "daoducthinh888@gmail.com",
+            pass: "37l215552thinhoanh",
+        }
     }
 }

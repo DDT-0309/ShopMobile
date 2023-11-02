@@ -51,10 +51,16 @@ router.get("/admin/users/delete/:id", AuthMiddleware.CheckAdmin, UserController.
 // Router Site
 
 router.get("/", SiteController.home);
-router.get("/category", SiteController.category);
-router.get("/product", SiteController.product);
+router.get("/category-:slug.:id", SiteController.category);
+router.get("/category-:id", SiteController.category);
+router.get("/product-:slug.:id", SiteController.product);
+router.post("/product-:slug.:id", SiteController.comment);
 router.get("/search", SiteController.search);
+router.post("/add-to-cart", SiteController.addToCart);
 router.get("/cart", SiteController.cart);
+router.post("/update-cart", SiteController.updateCart);
+router.get("/del-cart-:id", SiteController.delCart);
+router.post("/order", SiteController.order);
 router.get("/success", SiteController.success);
 
 

@@ -1,72 +1,41 @@
-<%- include("./layout/head", {title:"Category"})%>
+<%- include("./layout/head", {title})%>
 <%- include("./layout/header")%>
 <%- include("./layout/menu")%>
 <%- include("./layout/slider")%>
                 
                 <!--	List Product	-->
                 <div class="products">
-                    <h3>iPhone (hiện có 186 sản phẩm)</h3>
+                    <h3><%=title%> (hiện có <%=total%> sản phẩm)</h3>
                     <div class="product-list card-deck">
+                        <% for(product of products){%>
                         <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-1.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
+                            <a href="/product-<%=product.slug%>.<%=product._id%>"><img src="../images/<%=product.thumbnail%>"></a>
+                            <h4><a href="/product-<%=product.slug%>.<%=product._id%>"><%=product.name%></a></h4>
+                            <p>Giá Bán: <span><%=new Intl.NumberFormat("vi-VN", {style: "currency",currency: "VND",minimumFractionDigits: 0,}).format(product.price)%></span></p>
                         </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-2.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-3.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                    </div>
-                    <div class="product-list card-deck">
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-4.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-5.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-6.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                    </div>
-                    <div class="product-list card-deck">
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-7.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-8.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
-                        <div class="product-item card text-center">
-                            <a href="#"><img src="images/product-9.png"></a>
-                            <h4><a href="#">iPhone Xs Max 2 Sim - 256GB</a></h4>
-                            <p>Giá Bán: <span>32.990.000đ</span></p>
-                        </div>
+                        <%}%>
                     </div>
                 </div>
                 <!--	End List Product	-->
                 
                 <div id="pagination">
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Trang trước</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Trang sau</a></li>
+                            
+                        <%if(page>1){%>
+                            <li class="page-item"><a class="page-link" href="/category-<%=category._id%>?page=<%=page-1%>">&laquo;</a></li>
+                            <% }%>
+                                <%for(pageNum of pages){%>
+                                    <%if(pageNum==="..."){%>
+                                        <li class="page-item <%= pageNum===page? 'active':''%>"><span><%=pageNum%></span></li>
+                                    <% }else{%>
+                                        <li class="page-item <%= pageNum===page? 'active':''%>"><a class="page-link" href="/category-<%=category._id%>?page=<%=pageNum%>"><%=pageNum%></a></li>
+                                    <%}%>
+                            
+                                <%}%>
+
+                            <%if(page<totalPage){%>
+                            <li class="page-item"><a class="page-link" href="/category-<%=category._id%>?page=<%=page+1%>">&raquo;</a></li>
+                            <%}%>
                     </ul> 
                 </div>
                 
